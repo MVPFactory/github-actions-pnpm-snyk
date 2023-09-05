@@ -1,33 +1,30 @@
-const github = require('@actions/github')
-const core = require('@actions/core')
+import github from '@actions/github'
+import core from '@actions/core'
 import { getDelta } from 'snyk-delta'
 import { processPnpmLockfile  } from './compass/processPnpmLockfile'
 import { writeNpmPackageLock  } from './compass/writeNpmPackageLock'
 import { execSync } from 'child_process';
 import * as fs from 'fs'
-import * as pathLib from 'path'
-
 
 const runAction = async () => {
      
-    const breakBuild: boolean = core.getInput('breakBuild') == 'true' ? true : false
+    const breakBuild: boolean = core.getInput('breakBuild') === 'true';
     try{
         const snykToken: string = core.getInput('snykToken');
         const snykOrganization: string = core.getInput('snykOrganization');
-        const path: string = core.getInput('pnpmLockfilePath') == '.' ? '/' : core.getInput('pnpmLockfilePath')
+        const path: string = core.getInput('pnpmLockfilePath') === '.' ? '/' : core.getInput('pnpmLockfilePath')
         
-        const debug: boolean = core.getInput('debugMode')
-        const showDeps: boolean = core.getInput('showDepsInfo')
+        const debug: boolean = core.getInput('debugMode') === 'true';
+        const showDeps: boolean = core.getInput('showDepsInfo') === 'true';
         const snykArguments: string = core.getInput('snykArguments')
-        const fullScan = core.getInput('fullScan') == 'true' ? true : false
+        const fullScan: boolean = core.getInput('fullScan') === 'true';
         const payload = github.context.payload
         let snykArgs: string = snykArguments
 
         checkSnykToken(snykToken)
-        if(snykArgs != '') {
+        if(snykArgs !== '') {
             checkSnykArgs(snykArgs)
         }
-
 
         const snykAuth = execSync(`npx snyk auth ${snykToken}`)
 
@@ -37,7 +34,6 @@ const runAction = async () => {
 
         snykArgs = '--org=' + snykOrganization + ' ' + snykArgs
         
-
         if(payload.commits && payload.head_commit) {
             // On push, monitor
             const cmd = `npx snyk monitor ${snykArgs}`
@@ -146,34 +142,30 @@ const runAction = async () => {
 }
 
 const checkSnykToken = (snykToken: string) => {
-    const regex = /[^a-f0-9\-]/
+    const regex = /[^a-f0-9-]/;
     if(!isStringAgainstRegexOK(snykToken,regex)){
         throw new Error("Unauthorized characters in snyk token")
     }
-    
 }
+
 const checkSnykArgs = (snykArgs: string) => {
-    const regex = /[^a-zA-Z0-9\/\-_\\=\.\" ]/
+    const regex = /[^a-zA-Z0-9_=."/-]/
     if(!isStringAgainstRegexOK(snykArgs,regex)) {
         throw new Error("Unauthorized characters in snyk args")
     }
-    
 }
 
 const isStringAgainstRegexOK = (stringItem: string, regex: RegExp): boolean => {
-    const blacklistedCharacters = stringItem.match(regex)
-    if (blacklistedCharacters && blacklistedCharacters.length > 0) {
-        return false
+    const blacklistedCharacters = regex.exec(stringItem);
+    if (blacklistedCharacters) {
+        return false;
     }
-    return true
+    return true;
 }
 
-
-
-if(!module.parent){
+if (require.main === module) {
     runAction()
 }
- 
 
 export {
     runAction
