@@ -1,9 +1,6 @@
 # Github action to snyk test and monitor pnpm projects
 
 
-Testing some stuff
-
-
 <!-- Add Circle + Snyk badges here -->
 
 Allows for pnpm projects to be scanned in a similar manner as for NPM projects on Snyk.
