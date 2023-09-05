@@ -1,6 +1,6 @@
 {
-  "name": "github-actions-pnpm-snyk-prevent",
-  "version": "1.0.0",
+  "name": "github-actions-pnpm-snyk-mvpfactory",
+  "version": "1.2.0",
   "description": "Github action to snyk test and monitor pnpm projects",
   "main": "dist/index.js",
   "scripts": {
@@ -34,6 +34,6 @@
     "jest": "^25.1.0",
     "nock": "^12.0.2",
     "ts-jest": "^25.2.1",
-    "typescript": "^3.8.3"
+    "typescript": "^5.2.2"
   }
 }
