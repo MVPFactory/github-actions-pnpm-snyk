@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "node dist/index.js",
     "prebuild": "rm -rf dist",
-    "build": "npm run prebuild && tsc",
+    "build": "ncc build src/lib/index.ts --minify --source-map",
     "build-watch": "tsc -w"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "write-file-atomic": "^3.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@vercel/ncc": "^0.31.1"
   }
 }
