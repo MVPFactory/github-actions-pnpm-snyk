@@ -19,7 +19,7 @@ jobs:
       with:
         snykToken: ${{ secrets.SNYKTOKEN }}
         pnpmLockfilePath: "tests/fixtures/with-tslint/"
-        snykOrganization: playground
+        snykOrganization: ammararnt
         # snykArguments: "--severity-threshold=high"
         # breakBuild: false
         # fullScan: false
