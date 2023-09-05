@@ -1,6 +1,6 @@
 import { NpmPackageLock } from './processPnpmLockfile';
 
-import writeFileAtomic = require('write-file-atomic');
+import * as writeFileAtomic from 'write-file-atomic';
 
 export async function writeNpmPackageLock(packageLock: NpmPackageLock, filename: string) {
   const json = JSON.stringify(packageLock, null, 4);

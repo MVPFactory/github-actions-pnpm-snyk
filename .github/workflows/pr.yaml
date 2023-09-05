@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Snyk post processing
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: pnpm Snyk Delta
       id: pnpm-snyk-delta
-      uses: snyk-tech-services/github-actions-pnpm-snyk@master
+      uses: MVPFactory/github-actions-pnpm-snyk@1.2.2
       with:
         snykToken: ${{ secrets.SNYKTOKEN }}
         pnpmLockfilePath: "tests/fixtures/with-tslint/"
