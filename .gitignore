@@ -1,10 +1,6 @@
 # Ignore Node.js dependencies
 node_modules/
 
-# Ignore built files
-/dist/
-*.tsbuildinfo
-
 # Ignore GitHub Action artifacts
 *.rpk
 *.zip
